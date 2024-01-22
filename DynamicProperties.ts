@@ -24,12 +24,6 @@ export class DynamicProperties extends NativeClass {
   }
 }
 
-const ServerLevel$getDynamicProperties = procHacker.js(
-  '?getOrAddDynamicProperties@ServerLevel@@QEAAAEAVDynamicProperties@@XZ',
-  DynamicProperties,
-  { this: ServerLevel }
-);
-
 const DynamicProperties$getTotalByteCount = procHacker.js(
   '?getTotalByteCount@DynamicProperties@@QEBA_KXZ',
   int64_as_float_t,
@@ -65,7 +59,13 @@ DynamicProperties.prototype.getDynamicPropertyIds = (collectionName) => {
   return out;
 }
 
+const ServerLevel$getDynamicProperties = procHacker.js(
+  '?getOrAddDynamicProperties@ServerLevel@@QEAAAEAVDynamicProperties@@XZ',
+  DynamicProperties,
+  { this: ServerLevel }
+);
+
 export function getDynamicProperties(): DynamicProperties {
-  const dynamicProperties: StaticPointer = ServerLevel$getDynamicProperties.call(bedrockServer.level);
-  return dynamicProperties.as(DynamicProperties);
+  const dynamicProperties = ServerLevel$getDynamicProperties.call(bedrockServer.level);
+  return dynamicProperties;
 }
