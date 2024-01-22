@@ -26,8 +26,8 @@ export class DynamicProperties extends NativeClass {
 
 const ServerLevel$getDynamicProperties = procHacker.js(
   '?getOrAddDynamicProperties@ServerLevel@@QEAAAEAVDynamicProperties@@XZ',
-  VoidPointer,
-  { this: ServerLevel, structureReturn: true }
+  DynamicProperties,
+  { this: ServerLevel }
 );
 
 const DynamicProperties$getTotalByteCount = procHacker.js(
@@ -66,6 +66,6 @@ DynamicProperties.prototype.getDynamicPropertyIds = (collectionName) => {
 }
 
 export function getDynamicProperties(): DynamicProperties {
-  const dynamicProperties: VoidPointer = ServerLevel$getDynamicProperties.call(bedrockServer.level);
+  const dynamicProperties: StaticPointer = ServerLevel$getDynamicProperties.call(bedrockServer.level);
   return dynamicProperties.as(DynamicProperties);
 }

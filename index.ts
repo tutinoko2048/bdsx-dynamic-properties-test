@@ -15,11 +15,15 @@ events.serverClose.on(() => {
     // after BDS closed
 });
 
-command.register('dp', 'w').overload((param, origin, output) => {
-  const properties = getDynamicProperties();
-  console.log(properties.getDynamicPropertyIds(tnacHeader));
-  console.log(properties.getDynamicPropertyIds(tnacModule));
+events.serverOpen.on(() => {
+    command.register('dp', 'w').overload((param, origin, output) => {
+        const properties = getDynamicProperties();
+        console.log(properties.getTotalByteCount());
+        console.log(properties.getDynamicPropertyIds(tnacHeader))
+        console.log(properties.getDynamicPropertyIds(tnacHeader));
+        console.log(properties.getDynamicPropertyIds(tnacModule));
 
-  output.success();
-}, {})
+        output.success();
+    }, {});
+})
 

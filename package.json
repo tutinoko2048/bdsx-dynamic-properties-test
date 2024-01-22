@@ -1,5 +1,5 @@
 {
-    "name": "@bdsx/plugin-example",
+    "name": "@bdsx/bdsx-dynamic-properties",
     "version": "1.0.1",
     "description": "Example for bdsx plugin",
     "main": "index.js",
