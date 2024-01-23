@@ -51,14 +51,15 @@ const DynamicProperties$getDynamicPropertyIds = procHacker.js(
   { this: DynamicProperties, structureReturn: true },
   CxxString
 );
-DynamicProperties.prototype.getDynamicPropertyIds = (collectionName) => {
-  console.log('before getDynamicPropertyIds');
-  const ids: CxxVector<CxxString> = DynamicProperties$getDynamicPropertyIds.call(this, collectionName);
-  console.log('after getDynamicPropertyIds');
-  const out = ids.toArray();
-  ids.destruct();
-  return out;
-}
+DynamicProperties.prototype.getDynamicPropertyIds = collectionName => {
+    console.log("before getDynamicPropertyIds");
+    const ids = new CxxVector$string(true);
+    DynamicProperties$getDynamicPropertyIds.call(this, ids, collectionName);
+    console.log("after getDynamicPropertyIds");
+    const out = ids.toArray();
+    ids.destruct();
+    return out;
+};
 
 const DynamicProperties$getDynamicProperty = procHacker.js(
   '?getDynamicProperty@DynamicProperties@@QEAAPEAV?$variant@NM_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@VVec3@@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@0@Z',
