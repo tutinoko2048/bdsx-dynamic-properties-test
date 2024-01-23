@@ -1,3 +1,6 @@
+// MEMO reference:
+// https://github.com/LiteLDev/LeviLamina/blob/develop/src/mc/server/DynamicProperties.h
+
 import { CxxOptional } from "bdsx/bds/cxxoptional";
 import { ServerLevel } from "bdsx/bds/level";
 import { abstract } from "bdsx/common";
