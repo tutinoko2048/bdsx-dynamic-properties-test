@@ -1,3 +1,4 @@
+import { CxxOptional } from "bdsx/bds/cxxoptional";
 import { ServerLevel } from "bdsx/bds/level";
 import { abstract } from "bdsx/common";
 import { StaticPointer, VoidPointer } from "bdsx/core";
@@ -11,6 +12,10 @@ const CxxVector$string = CxxVector.make(CxxString);
 
 @nativeClass()
 export class DynamicProperties extends NativeClass {
+  getCollectionCount(): number {
+    abstract();
+  }
+
   getTotalByteCount(): number {
     abstract();
   }
@@ -24,18 +29,17 @@ export class DynamicProperties extends NativeClass {
   }
 }
 
-const DynamicProperties$getTotalByteCount = procHacker.js(
-  '?getTotalByteCount@DynamicProperties@@QEBA_KXZ',
+DynamicProperties.prototype.getCollectionCount = procHacker.js(
+  '?getCollectionCount@DynamicProperties@@QEBA_KXZ',
   int64_as_float_t,
   { this: DynamicProperties }
 );
 
-const DynamicProperties$getDynamicProperty = procHacker.js(
-  '?getDynamicProperty@DynamicProperties@@QEAAPEAV?$variant@NM_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@VVec3@@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@0@Z',
-  StaticPointer,
-  { this: DynamicProperties, structureReturn: true },
-  CxxString,
-  CxxString
+
+DynamicProperties.prototype.getTotalByteCount = procHacker.js(
+  '?getTotalByteCount@DynamicProperties@@QEBA_KXZ',
+  int64_as_float_t,
+  { this: DynamicProperties }
 );
 
 const DynamicProperties$getDynamicPropertyIds = procHacker.js(
@@ -44,19 +48,25 @@ const DynamicProperties$getDynamicPropertyIds = procHacker.js(
   { this: DynamicProperties, structureReturn: true },
   CxxString
 );
-
-DynamicProperties.prototype.getTotalByteCount = DynamicProperties$getTotalByteCount;
-
-DynamicProperties.prototype.getDynamicProperty = (key, collectionName) => {
-  const pointer: StaticPointer = DynamicProperties$getDynamicProperty.call(this, key, collectionName);
-  return pointer.getCxxString();
-}
-
 DynamicProperties.prototype.getDynamicPropertyIds = (collectionName) => {
+  console.log('before getDynamicPropertyIds');
   const ids: CxxVector<CxxString> = DynamicProperties$getDynamicPropertyIds.call(this, collectionName);
+  console.log('after getDynamicPropertyIds');
   const out = ids.toArray();
   ids.destruct();
   return out;
+}
+
+const DynamicProperties$getDynamicProperty = procHacker.js(
+  '?getDynamicProperty@DynamicProperties@@QEAAPEAV?$variant@NM_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@VVec3@@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@0@Z',
+  VoidPointer,
+  { this: DynamicProperties, structureReturn: true },
+  CxxString,
+  CxxString
+);
+DynamicProperties.prototype.getDynamicProperty = (key, collectionName) => {
+  const pointer: VoidPointer = DynamicProperties$getDynamicProperty.call(this, key, collectionName);
+  return pointer
 }
 
 const ServerLevel$getDynamicProperties = procHacker.js(
@@ -64,7 +74,6 @@ const ServerLevel$getDynamicProperties = procHacker.js(
   DynamicProperties,
   { this: ServerLevel }
 );
-
 export function getDynamicProperties(): DynamicProperties {
   const dynamicProperties = ServerLevel$getDynamicProperties.call(bedrockServer.level);
   return dynamicProperties;

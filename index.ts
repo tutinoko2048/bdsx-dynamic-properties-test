@@ -18,10 +18,12 @@ events.serverClose.on(() => {
 events.serverOpen.on(() => {
     command.register('dp', 'w').overload((param, origin, output) => {
         const properties = getDynamicProperties();
-        console.log(properties.getTotalByteCount());
-        console.log(properties.getDynamicPropertyIds(tnacHeader))
-        console.log(properties.getDynamicPropertyIds(tnacHeader));
-        console.log(properties.getDynamicPropertyIds(tnacModule));
+        //console.log(properties);
+        console.log('collectionCount', properties.getCollectionCount())
+        console.log('totalByteCount', properties.getTotalByteCount());
+        console.log('ids', properties.getDynamicPropertyIds(tnacHeader))
+        //console.log(properties.getDynamicProperty(tnacHeader, 'tn:configData'));
+        //console.log(properties.getDynamicPropertyIds(tnacModule));
 
         output.success();
     }, {});
