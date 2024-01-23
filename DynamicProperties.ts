@@ -69,12 +69,12 @@ DynamicProperties.prototype.getDynamicProperty = (key, collectionName) => {
   return pointer
 }
 
-const ServerLevel$getDynamicProperties = procHacker.js(
+const ServerLevel$getOrAddDynamicProperties = procHacker.js(
   '?getOrAddDynamicProperties@ServerLevel@@QEAAAEAVDynamicProperties@@XZ',
   DynamicProperties,
   { this: ServerLevel }
 );
 export function getDynamicProperties(): DynamicProperties {
-  const dynamicProperties = ServerLevel$getDynamicProperties.call(bedrockServer.level);
+  const dynamicProperties = ServerLevel$getOrAddDynamicProperties.call(bedrockServer.level);
   return dynamicProperties;
 }
