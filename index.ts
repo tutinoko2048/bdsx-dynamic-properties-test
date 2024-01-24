@@ -22,11 +22,10 @@ events.serverOpen.on(() => {
         //console.log(properties);
         console.log('collectionCount', properties.getCollectionCount());
         console.log('totalByteCount', properties.getTotalByteCount());
-        console.log('ids', properties.getDynamicPropertyIds(testHeader))
+        console.log('ids', properties.getDynamicPropertyIds(tnacHeader).toArray())
         //console.log(properties.getDynamicProperty(tnacHeader, 'tn:configData'));
         //console.log(properties.getDynamicPropertyIds(tnacModule));
 
         output.success();
     }, {});
 })
-
