@@ -49,6 +49,7 @@ const DynamicProperties$getDynamicPropertyIds = procHacker.js(
   '?getDynamicPropertyIds@DynamicProperties@@QEAA?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@@Z',
   CxxVector$string,
   { this: DynamicProperties, structureReturn: true },
+  //CxxVector$string,
   CxxString
 );
 DynamicProperties.prototype.getDynamicPropertyIds = collectionName => {
@@ -60,6 +61,7 @@ DynamicProperties.prototype.getDynamicPropertyIds = collectionName => {
     ids.destruct();
     return out;
 };
+
 
 const DynamicProperties$getDynamicProperty = procHacker.js(
   '?getDynamicProperty@DynamicProperties@@QEAAPEAV?$variant@NM_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@VVec3@@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@0@Z',
@@ -82,3 +84,18 @@ export function getDynamicProperties(): DynamicProperties {
   const dynamicProperties = ServerLevel$getOrAddDynamicProperties.call(bedrockServer.level);
   return dynamicProperties;
 }
+
+/*
+const _onGetIds = procHacker.hooking(
+  '?getDynamicPropertyIds@DynamicProperties@@QEAA?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@@Z',
+  CxxVector$string,
+  { this: DynamicProperties, structureReturn: true },
+  CxxString
+)(onGetIds)
+function onGetIds(collectionName: CxxString) {
+  const ids = _onGetIds.call(DynamicProperties, collectionName);
+  console.log('onGetIds', collectionName);
+  //ids.destruct()
+  return ids;
+}
+*/

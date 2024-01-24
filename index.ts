@@ -4,6 +4,7 @@ import { getDynamicProperties } from "./DynamicProperties";
 
 const tnacHeader = 'c225a904-422a-4917-b88d-5c3452b8d17f';
 const tnacModule = 'fcc8732d-300a-40e0-8a5d-613df2291a24';
+const testHeader = '8f703922-29db-42ae-a662-4ca361249850';
 
 events.serverOpen.on(() => {
     console.log("[ExamplePlugin] launched");
@@ -19,9 +20,9 @@ events.serverOpen.on(() => {
     command.register('dp', 'w').overload((param, origin, output) => {
         const properties = getDynamicProperties();
         //console.log(properties);
-        console.log('collectionCount', properties.getCollectionCount())
+        console.log('collectionCount', properties.getCollectionCount());
         console.log('totalByteCount', properties.getTotalByteCount());
-        console.log('ids', properties.getDynamicPropertyIds(tnacHeader))
+        console.log('ids', properties.getDynamicPropertyIds(testHeader))
         //console.log(properties.getDynamicProperty(tnacHeader, 'tn:configData'));
         //console.log(properties.getDynamicPropertyIds(tnacModule));
 
