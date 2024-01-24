@@ -23,7 +23,7 @@ export class DynamicProperties extends NativeClass {
     abstract();
   }
 
-  getDynamicPropertyIds(collectionName: CxxString): CxxVector<string> {
+  getDynamicPropertyIds(collectionName: string): string[] {
     abstract();
   }
 
@@ -44,14 +44,19 @@ DynamicProperties.prototype.getTotalByteCount = procHacker.js(
   int64_as_float_t,
   { this: DynamicProperties }
 );
-
-DynamicProperties.prototype.getDynamicPropertyIds = procHacker.js(
+const DynamicProperties$getDynamicPropertyIds = procHacker.js(
   '?getDynamicPropertyIds@DynamicProperties@@QEAA?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@@Z',
   CxxVector$string,
   { this: DynamicProperties, structureReturn: true },
   //CxxVector$string,
   CxxString
 );
+DynamicProperties.prototype.getDynamicPropertyIds = function (collectionName: string) {
+  const ids:CxxVector<string> = DynamicProperties$getDynamicPropertyIds.call(this,collectionName);
+  const out = ids.toArray();
+  ids.destruct();
+  return out;
+};
 
 const DynamicProperties$getDynamicProperty = procHacker.js(
   '?getDynamicProperty@DynamicProperties@@QEAAPEAV?$variant@NM_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@VVec3@@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@0@Z',
