@@ -28,10 +28,11 @@ export class DynamicProperties extends NativeClass {
     abstract();
   }
 
-  /** not implemented */
+  /*
   getDynamicProperty(key: string, collectionName: string): string | number | boolean | Vec3 | undefined {
     abstract();
   }
+  */
 }
 
 DynamicProperties.prototype.getCollectionCount = procHacker.js(
@@ -59,6 +60,7 @@ DynamicProperties.prototype.getDynamicPropertyIds = function (collectionName: st
   return out;
 };
 
+/*
 const DynamicProperties$getDynamicProperty = procHacker.js(
   '?getDynamicProperty@DynamicProperties@@QEAAPEAV?$variant@NM_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@VVec3@@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@0@Z',
   VoidPointer,
@@ -70,13 +72,14 @@ DynamicProperties.prototype.getDynamicProperty = function (key: string, collecti
   const pointer: VoidPointer = DynamicProperties$getDynamicProperty.call(this, key, collectionName);
   return; // not implemented
 }
+*/
 
 const ServerLevel$getOrAddDynamicProperties = procHacker.js(
   '?getOrAddDynamicProperties@ServerLevel@@QEAAAEAVDynamicProperties@@XZ',
   DynamicProperties,
   { this: ServerLevel }
 );
-export function getDynamicProperties(): DynamicProperties {
+export function getWorldDynamicProperties(): DynamicProperties {
   return ServerLevel$getOrAddDynamicProperties.call(bedrockServer.level);
 }
 
