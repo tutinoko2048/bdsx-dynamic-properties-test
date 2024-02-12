@@ -11,6 +11,7 @@ import { NativeClass, nativeClass } from "bdsx/nativeclass";
 import { CxxString, int64_as_float_t } from "bdsx/nativetype";
 import { procHacker } from "bdsx/prochacker";
 import { Vec3 } from "bdsx/bds/blockpos";
+import { Actor } from "bdsx/bds/actor";
 
 const CxxVector$string = CxxVector.make(CxxString);
 
@@ -48,7 +49,7 @@ DynamicProperties.prototype.getTotalByteCount = procHacker.js(
 );
 
 const DynamicProperties$getDynamicPropertyIds = procHacker.js(
-  '?getDynamicPropertyIds@DynamicProperties@@QEAA?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@@Z',
+  '?getDynamicPropertyIds@DynamicProperties@@QEBA?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@@Z',
   CxxVector$string,
   { this: DynamicProperties, structureReturn: true },
   CxxString
@@ -62,7 +63,7 @@ DynamicProperties.prototype.getDynamicPropertyIds = function (collectionName: st
 
 /*
 const DynamicProperties$getDynamicProperty = procHacker.js(
-  '?getDynamicProperty@DynamicProperties@@QEAAPEAV?$variant@NM_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@VVec3@@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@0@Z',
+  '?getDynamicProperty@DynamicProperties@@QEBAPEBV?$variant@NM_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@VVec3@@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@0@Z',
   VoidPointer,
   { this: DynamicProperties, structureReturn: true },
   CxxString,
@@ -79,7 +80,15 @@ const ServerLevel$getOrAddDynamicProperties = procHacker.js(
   DynamicProperties,
   { this: ServerLevel }
 );
-export function getWorldDynamicProperties(): DynamicProperties {
+const Actor$getOrAddDynamicProperties = procHacker.js(
+  '?getOrAddDynamicProperties@Actor@@QEAAAEAVDynamicProperties@@XZ',
+  DynamicProperties,
+  { this: Actor }
+);
+export function getDynamicProperties(actor?: Actor): DynamicProperties {
+  if (actor) {
+    return Actor$getOrAddDynamicProperties.call(actor);
+  }
   return ServerLevel$getOrAddDynamicProperties.call(bedrockServer.level);
 }
 

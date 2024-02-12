@@ -1,6 +1,6 @@
 import { events } from "bdsx/event";
 import { command } from "bdsx/command";
-import { getWorldDynamicProperties } from "./DynamicProperties";
+import { getDynamicProperties } from "./DynamicProperties";
 
 const tnacHeader = 'c225a904-422a-4917-b88d-5c3452b8d17f';
 const tnacModule = 'fcc8732d-300a-40e0-8a5d-613df2291a24';
@@ -19,7 +19,7 @@ events.serverClose.on(() => {
 events.serverOpen.on(() => {
     command.register('dp', 'w').overload((param, origin, output) => {
 
-        const properties = getWorldDynamicProperties();
+        const properties = getDynamicProperties();
         console.log('collectionCount', properties.getCollectionCount());
         console.log('totalByteCount', properties.getTotalByteCount());
         console.log('ids', properties.getDynamicPropertyIds(testHeader))
