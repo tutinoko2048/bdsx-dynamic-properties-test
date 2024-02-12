@@ -1,17 +1,14 @@
 // MEMO reference:
 // https://github.com/LiteLDev/LeviLamina/blob/develop/src/mc/server/DynamicProperties.h
 
-import { CxxOptional } from "bdsx/bds/cxxoptional";
-import { ServerLevel } from "bdsx/bds/level";
 import { abstract } from "bdsx/common";
-import { StaticPointer, VoidPointer } from "bdsx/core";
-import { CxxVector } from "bdsx/cxxvector";
-import { bedrockServer } from "bdsx/launcher";
-import { NativeClass, nativeClass } from "bdsx/nativeclass";
-import { CxxString, int64_as_float_t } from "bdsx/nativetype";
 import { procHacker } from "bdsx/prochacker";
-import { Vec3 } from "bdsx/bds/blockpos";
+import { NativeClass, nativeClass } from "bdsx/nativeclass";
+import { bedrockServer } from "bdsx/launcher";
+import { CxxString, int64_as_float_t } from "bdsx/nativetype";
+import { CxxVector } from "bdsx/cxxvector";
 import { Actor } from "bdsx/bds/actor";
+import { ServerLevel } from "bdsx/bds/level";
 
 const CxxVector$string = CxxVector.make(CxxString);
 
